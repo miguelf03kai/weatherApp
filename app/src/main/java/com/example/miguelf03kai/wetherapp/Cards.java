@@ -1,11 +1,14 @@
 package com.example.miguelf03kai.wetherapp;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +17,7 @@ import java.util.Date;
 
 public class Cards extends RecyclerView.Adapter<Cards.ViewHolder> {
 
+    private static Context context;
     private ArrayList<String> Atime,Atemp,Aspeed,Aimg;
 
     public Cards(ArrayList<String> Atime,ArrayList<String> Atemp,ArrayList<String> Aspeed,ArrayList<String> Aimg) {
@@ -46,7 +50,7 @@ public class Cards extends RecyclerView.Adapter<Cards.ViewHolder> {
             e.printStackTrace();
         }
 
-        new DownloadImageTask(holder.img).execute("https:"+Aimg.get(position));
+        Picasso.with(Cards.context).load(Aimg.get(position)).into(holder.img);
     }
 
     @Override

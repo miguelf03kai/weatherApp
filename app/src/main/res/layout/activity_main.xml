@@ -8,7 +8,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:id="@+id/main"
-    tools:context="com.example.miguelf03kai.wetherapp.MainActivity">
+    tools:context="com.example.miguelf03kai.wetherapp.MainActivity"
+    android:background="#989898">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/background"
+        android:scaleType="centerCrop" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
@@ -23,7 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/content"
-        android:visibility="gone">
+        android:visibility="visible"
+        android:layout_margin="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,10 +45,9 @@
             android:textColor="#ffffff" />
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
             android:id="@+id/imageView"
-            android:src="@drawable/sun"
             android:layout_below="@+id/textView3"
             android:layout_centerHorizontal="true" />
 
@@ -51,8 +58,10 @@
             android:id="@+id/textView2"
             android:textColor="#ffffff"
             android:layout_below="@+id/textView4"
-            android:layout_marginTop="60dp"
-            android:layout_alignParentLeft="true" />
+            android:layout_marginTop="70dp"
+            android:layout_alignParentLeft="true"
+            android:textStyle="bold"
+            android:textSize="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,20 +72,7 @@
             android:textColor="#fff"
             android:textSize="55dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="165dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:background="#00ffffff"
-            android:height="35dp"
-            android:layout_below="@+id/textView"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="40dp"
-            android:layout_toLeftOf="@+id/button"
-            android:textColor="#fff"
-            android:singleLine="false" />
+            android:layout_marginTop="135dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,26 +83,9 @@
             android:layout_below="@+id/imageView"
             android:layout_centerHorizontal="true"
             android:textColor="#fff"
-            android:layout_marginTop="5dp"/>
-
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/button"
-            android:background="@mipmap/search"
-            android:layout_alignTop="@+id/editText"
-            android:layout_alignParentRight="true"
-            android:gravity="right" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter a City Name"
-            android:id="@+id/textView5"
-            android:textColor="#ffffff"
-            android:layout_above="@+id/button"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:textSize="16dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -114,6 +93,59 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView2"
             android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Region:   "
+            android:id="@+id/textView8"
+            android:textColor="#fff"
+            android:layout_below="@+id/textView4"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tvRegion"
+            android:textColor="#fff"
+            android:layout_alignTop="@+id/textView8"
+            android:layout_toEndOf="@+id/textView8" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tvCountry"
+            android:textColor="#fff"
+            android:layout_alignTop="@+id/textView11"
+            android:layout_toEndOf="@+id/textView11" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Country:   "
+            android:id="@+id/textView11"
+            android:textColor="#fff"
+            android:layout_below="@+id/textView8"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp" />
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:iconifiedByDefault="false"
+            android:background="@layout/sv_background"
+            android:queryHint="Enter a city name"
+            android:focusable="false"
+            android:searchIcon="@mipmap/ic_search" />
 
     </RelativeLayout>
 
