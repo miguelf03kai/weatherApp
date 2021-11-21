@@ -34,18 +34,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private ProgressBar pb;
+    private ProgressBar loader;
     private ImageView ivCondition,background;
-    private TextView degree,conditionTv,cityTv,tvRegion,tvCountry;
+    private TextView degree,conditionTv,cityTv,tvRegion,tvCountry,tvLocalTime;
     private SearchView search;
-    private RelativeLayout rl,content;
+    private RelativeLayout content;
 
     ArrayList<String> time,temp,speed,image;
 
@@ -71,21 +74,21 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        pb = (ProgressBar)findViewById(R.id.progressBar);
-        rl = (RelativeLayout)findViewById(R.id.main);
+        loader = (ProgressBar)findViewById(R.id.pbLoader);
         content = (RelativeLayout)findViewById(R.id.content);
-        search = (SearchView)findViewById(R.id.searchView);
-        degree = (TextView)findViewById(R.id.textView3);
-        conditionTv = (TextView)findViewById(R.id.textView4);
-        cityTv = (TextView)findViewById(R.id.textView);
-        tvRegion = (TextView)findViewById(R.id.tvRegion);
-        tvCountry = (TextView)findViewById(R.id.tvCountry);
-        ivCondition = (ImageView)findViewById(R.id.imageView);
+        search = (SearchView)findViewById(R.id.searchField);
+        degree = (TextView)findViewById(R.id.tvDeqree);
+        conditionTv = (TextView)findViewById(R.id.tvCondition);
+        cityTv = (TextView)findViewById(R.id.tvCityName);
+        tvRegion = (TextView)findViewById(R.id.tvRegion_Value);
+        tvCountry = (TextView)findViewById(R.id.tvCountry_Value);
+        ivCondition = (ImageView)findViewById(R.id.ivWatherIcon);
         background = (ImageView)findViewById(R.id.background);
+        tvLocalTime = (TextView)findViewById(R.id.tvLocalTime);
 
         API = new api();
 
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView)findViewById(R.id.rvCards);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
@@ -101,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_CODE);
         }
 
-        //this takes last request done by the gps device, if not have no request done, the application will returns null
+        //this takes last location provided by network, if not have no information about location, will be returned null
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         if(location != null)
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 content.setVisibility(View.GONE);
-                pb.setVisibility(View.VISIBLE);
+                loader.setVisibility(View.VISIBLE);
 
                 getWeather(API.checkWaether(query));
                 return false;
@@ -180,6 +183,22 @@ public class MainActivity extends AppCompatActivity {
         return cityName;
     }
 
+    //return local time formatted
+    public String dateTimeFormatting(String time){
+        String pattern = "yyyy-MM-dd HH:mm";
+        Date date = null;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        try {
+            date = simpleDateFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat formatting = new SimpleDateFormat("E dd MMMM hh:mm a");
+        String formatedDate = formatting.format(date);
+        return formatedDate;
+    }
+
+
     public void getWeather(String url){
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
 
@@ -187,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 //hide progress bar.
-                pb.setVisibility(View.GONE);
+                loader.setVisibility(View.GONE);
                 // show app content
                 content.setVisibility(View.VISIBLE);
                 try {
@@ -203,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
                     conditionTv.setText(current.getJSONObject("condition").getString("text"));
                     tvRegion.setText(location.getString("region"));
                     tvCountry.setText(location.getString("country"));
+                    tvLocalTime.setText(dateTimeFormatting(location.getString("localtime")));
 
                     //load the image from url using picasso library.
                     if(current.getInt("is_day") == 0)
@@ -245,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                pb.setVisibility(View.GONE);
+                loader.setVisibility(View.GONE);
                 content.setVisibility(View.VISIBLE);
 
                 Toast.makeText(MainActivity.this, "No matching location found.", Toast.LENGTH_LONG).show();
