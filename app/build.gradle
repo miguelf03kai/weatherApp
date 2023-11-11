@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion '29.0.3'
     defaultConfig {
-        applicationId "com.example.miguelf03kai.wetherapp"
+        applicationId "com.miguelf03kai.weatherapp"
         minSdkVersion 23
         targetSdkVersion 23
         versionCode 1
@@ -24,11 +24,9 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
-
     //dependence for recycleview library
     compile 'com.android.support:recyclerview-v7:23.0.+'
     compile 'com.android.support:cardview-v7:23.0.+'
-
     // below line is used for volley library
     compile 'com.android.volley:volley:1.1.1'
     // dependence for picasso
