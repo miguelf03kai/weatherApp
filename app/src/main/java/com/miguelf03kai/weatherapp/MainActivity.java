@@ -28,7 +28,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.miguelf03kai.weatherapp.cards.CardView;
 import com.miguelf03kai.weatherapp.utils.Formatter;
-import com.miguelf03kai.weatherapp.utils.WeatherAPI;
+import com.miguelf03kai.weatherapp.apis.WeatherAPI;
 import com.miguelf03kai.weatherapp.utils.Localization;
 import com.squareup.picasso.Picasso;
 

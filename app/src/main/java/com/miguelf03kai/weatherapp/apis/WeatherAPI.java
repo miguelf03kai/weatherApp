@@ -1,4 +1,4 @@
-package com.miguelf03kai.weatherapp.utils;
+package com.miguelf03kai.weatherapp.apis;
 
 public class WeatherAPI {
 
