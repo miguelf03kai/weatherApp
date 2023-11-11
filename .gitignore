@@ -7,5 +7,4 @@
 /build
 /captures
 app/build/*
-app/.settings/*
 weatherAPI.postman_collection.json
